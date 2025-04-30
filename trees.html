@@ -4,21 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Go Green</title>
-    <link rel="stylesheet" href="trees.css" />
+    <link rel="stylesheet" href="/greenGrow/css/tree.css" />
   </head>
   <body>
     <div class="navbar">
       <div class="logo">
-        <a href="agri.html"
-          ><img src="/images/GreenGrow.png" alt="Green Grow Logo"
+        <a href="index.html"
+          ><img src="/greenGrow/images/GreenGrow.png" alt="Green Grow Logo"
         /></a>
       </div>
       <div class="navbtns">
         <a href="farmer.html"> Farmer Tools</a>
-        <a href="trees.html"> Green Guardian</a>
+        <a href="trees.html" class="active"> Green Guardian</a>
         <a href="#"> Green Map</a>
-        <a href="/login/login.html">Login</a>
-        <a href="/login/register.html">Register</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
       </div>
     </div>
 
@@ -33,12 +33,12 @@
         </div>
       </div>
       <div class="button">
-        <button class="start">Get Started</button>
+        <button class="start"><a href="#"></a>Get Started</button>
         <button class="learn">Learn More</button>
       </div>
     </div>
-    <script src="app.js"></script>
-    <script src="auth.js"></script>
+    <script src="/greenGrow/js/app.js"></script>
+    <script src="/greenGrow/js/auth.js"></script>
     <script>
       // Update navbar based on auth state
       auth.onAuthStateChanged((user) => {

@@ -4,25 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GreenGrow</title>
-    <link rel="stylesheet" href="agri.css" />
+    <link rel="stylesheet" href="/greenGrow/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
-
   <body>
     <div class="navbar">
       <div class="logo">
-        <a href="agri.html"
-          ><img src="/images/GreenGrow.png" alt="Green Grow Logo"
-        /></a>
+        <a href="index.html">
+          <img src="/greenGrow/images/GreenGrow.png" alt="Green Grow Logo" />
+        </a>
       </div>
       <div class="navbtns">
         <a href="farmer.html"> Farmer Tools</a>
         <a href="trees.html"> Green Guardian</a>
         <a href="#"> Green Map</a>
-        <a href="/login/login.html">Login</a>
-        <a href="/login/register.html">Register</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
       </div>
     </div>
-    <main class="main">
+
+    <main class="front">
       <div class="main_content">
         <div class="content">
           <h2>Grow Better. Plant Smarter.</h2>
@@ -47,54 +51,38 @@
         </div>
       </div>
     </main>
+
     <footer>
       <div id="tree">
-        <img class="logo" src="images/trees.png" />
+        <img class="logo" src="/greenGrow/images/trees.png" />
         <div>Smart tree</div>
-        <div>Reccomendations</div>
+        <div>Recommendations</div>
       </div>
       <div id="location">
-        <img class="logo" src="images/location.png" />
+        <img class="logo" src="/greenGrow/images/location.png" />
         <div>Community</div>
         <div>Tree Mapping</div>
       </div>
       <div id="plant">
-        <img class="logo" src="images/plant.png" />
+        <img class="logo" src="/greenGrow/images/plant.png" />
         <div>Growth Tracking</div>
         <div>& Celebration</div>
       </div>
       <div id="earth">
-        <img class="logo" src="images/earth.png" />
+        <img class="logo" src="/greenGrow/images/earth.png" />
         <div>Sustainable</div>
         <div>Future Together</div>
       </div>
     </footer>
 
-    <script src="agri.js"></script>
-    <script src="app.js"></script>
-    <script src="auth.js"></script>
-    <script>
-      // Update navbar based on auth state
-      auth.onAuthStateChanged((user) => {
-        const navbtns = document.querySelector(".navbtns");
-        if (user) {
-          // User is logged in
-          navbtns.innerHTML += `
-        <a href="#" id="logout-btn">Logout (${
-          user.displayName || user.email
-        })</a>
-      `;
-          document
-            .getElementById("logout-btn")
-            .addEventListener("click", logout);
-        } else {
-          // User is logged out
-          navbtns.innerHTML += `
-        <a href="login.html">Login</a>
-        <a href="register.html">Register</a>
-      `;
-        }
-      });
-    </script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <!-- App Scripts -->
+    <script src="/greenGrow/js/app.js"></script>
+    <script src="/greenGrow/js/auth.js"></script>
+    <script src="/greenGrow/js/main.js"></script>
   </body>
 </html>

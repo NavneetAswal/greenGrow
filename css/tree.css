@@ -37,7 +37,7 @@ body {
 
 .navbtns a {
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   padding: 10px 15px;
   margin: 0 5px;
   color: var(--black);
@@ -67,7 +67,7 @@ body {
       rgba(103, 102, 102, 0.9),
       rgba(210, 210, 210, 0.87)
     ),
-    url(/images/plants.jpg);
+    url(/greenGrow/images/plants.jpg);
   background-size: over;
   background-repeat: no-repeat;
   background-color: rgba(191, 186, 186, 0.203);

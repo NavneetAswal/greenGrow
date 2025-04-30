@@ -11,12 +11,7 @@ const weatherList = document.getElementById("weatherList");
 const cropSuggestionList = document.getElementById("cropSuggestion");
 
 const API_KEY = "3eb7b84eb0de9115a467ecbbb48dfb85";
-// At the top of script.js
-auth.onAuthStateChanged((user) => {
-  if (!user) {
-    window.location.href = "login.html?redirect=farmer.html";
-  }
-});
+
 // crop seaosns database
 const cropSeasons = {
   wheat: { season: "October to December", temp: "cool" },
