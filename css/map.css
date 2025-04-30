@@ -1,0 +1,180 @@
+:root {
+  --primary-green: #388e3c;
+  --dark-green: #246e39;
+  --light-green: #89d564;
+  --light-gray: #f5f5f5;
+  --dark-blue: #1e1e4d;
+  --white: #ffffff;
+  --black: #333333;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: linear-gradient(rgba(0, 100, 0, 0.7), rgba(0, 60, 0, 0.8)),
+    url("images/plants.jpg") no-repeat center center/cover;
+  color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  padding: 0 5%;
+  background-color: var(--light-green);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+  height: 80px;
+  width: 180px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  padding: 0 5%;
+  background-color: var(--light-gray);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbtns {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbtns a {
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 10px 15px;
+  color: var(--black);
+  transition: all 0.3s ease;
+  border-radius: 5px;
+}
+
+.navbtns a:hover,
+.navbtns a.active {
+  color: var(--white);
+  background-color: var(--primary-green);
+}
+
+.navbtns a i {
+  margin-right: 8px;
+}
+.hero {
+  text-align: center;
+  padding: 100px 20px 60px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+button {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.start {
+  background-color: #00c853;
+  color: white;
+}
+
+.learn {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+.map-section,
+.badges-section {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.map-placeholder {
+  height: 300px;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin: 20px auto;
+  width: 90%;
+  border: 2px dashed #ffffff88;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.badges {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 40, 0, 0.8);
+  font-size: 0.9rem;
+}
+
+.upload-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.upload-box {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+  color: black;
+}

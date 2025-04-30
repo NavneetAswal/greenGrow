@@ -46,6 +46,13 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.navbtns {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .navbtns a {
   text-decoration: none;
   font-size: 1.1rem;
@@ -161,33 +168,32 @@ footer img {
     ),
     url(/greenGrow/images/bg.png);
   min-height: 100vh;
+  padding-bottom: 2rem;
   padding-top: 3rem;
 }
 .auth-form {
   background-color: var(--white);
-  padding: 3rem;
+  padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
 }
-.auth-form h2 {
+
+.auth-form,
+.auth-form2 h2 {
   text-align: center;
+  margin-bottom: 0.5rem;
 }
 .auth-form2 {
   background-color: var(--white);
-  padding: 3rem;
+  padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto;
-}
-
-.auth-form2 h2 {
-  text-align: center;
-  margin-bottom: 1rem;
 }
 
 .form-group {
@@ -196,7 +202,6 @@ footer img {
 
 .form-group label {
   display: block;
-  margin-bottom: 0.1rem;
   font-weight: 600;
 }
 
@@ -266,4 +271,13 @@ button[type="submit"]:hover {
     gap: 2rem;
     padding: 2rem;
   }
+}
+
+#auth-buttons,
+#dashboard-link {
+  transition: opacity 0.3s ease;
+}
+
+.navbtns a {
+  margin: 0 10px;
 }

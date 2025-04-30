@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Go Green</title>
+    <link rel="stylesheet" href="/greenGrow/css/map.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  </head>
+  <div id="upload-modal" style="display: none" class="upload-modal">
+    <div class="upload-box">
+      <h3>Upload a Photo of Your Tree</h3>
+      <input type="file" id="custom-file-input" accept="image/*" />
+      <div style="margin-top: 10px">
+        <button id="upload-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html">
+          <img src="/greenGrow/images/GreenGrow.png" alt="Green Grow Logo" />
+        </a>
+      </div>
+      <div class="navbtns">
+        <a href="farmer.html"> Farmer Tools</a>
+        <a href="trees.html"> Green Guardian</a>
+        <a href="map.html"> Green Map</a>
+        <a href="dashboard.html" id="dashboard-link" style="display: none"
+          >Profile</a
+        >
+      </div>
+    </div>
+
+    <header class="hero">
+      <div class="hero-content">
+        <h1>Map, Track & Celebrate</h1>
+        <p>Join the movement and make our Earth greener!</p>
+        <div class="hero-buttons"></div>
+      </div>
+    </header>
+
+    <section class="map-section">
+      <h2>Select a District to Track Plantations</h2>
+      <select id="district-dropdown">
+        <option value="">--Select a District--</option>
+      </select>
+      <div id="map" style="height: 400px; width: 100%"></div>
+      <button id="plant-tree" style="margin-top: 10px">Plant a Tree</button>
+    </section>
+
+    <footer>
+      <p>🌳 Together we grow a greener tomorrow.</p>
+    </footer>
+
+    <template id="login-template">
+      <div class="login-container">
+        <div class="login-box">
+          <h2>Login / Register</h2>
+          <form>
+            <div class="input-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" name="username" required />
+            </div>
+            <div class="input-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required />
+            </div>
+            <button type="submit" id="submit">Login</button>
+            <p class="note">Forgot your password? <a href="#">Click here</a></p>
+          </form>
+        </div>
+      </div>
+    </template>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="/greenGrow/js/map.js"></script>
+    <script>
+      auth.onAuthStateChanged((user) => {
+        const authButtons = document.getElementById("auth-buttons");
+        const dashboardLink = document.getElementById("dashboard-link");
+
+        if (user) {
+          authButtons.style.display = "none";
+          dashboardLink.style.display = "block";
+        } else {
+          authButtons.style.display = "block";
+          dashboardLink.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>

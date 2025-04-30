@@ -2,22 +2,15 @@
 auth.onAuthStateChanged((user) => {
   const currentPage = window.location.pathname.split("/").pop();
 
-  // Update navbar based on auth state
-  updateNavbar(user);
-
-  // Redirect logic
   if (user) {
-    // User is logged in
-    if (
-      currentPage === "login.html" ||
-      currentPage === "register.html" ||
-      currentPage === "index.html"
-    ) {
+    // Only redirect from login/register pages
+    if (currentPage === "login.html" || currentPage === "register.html") {
       window.location.href = "dashboard.html";
     }
   } else {
-    // User is logged out
-    if (currentPage === "dashboard.html" || currentPage === "farmer.html") {
+    // Redirect from protected pages
+    const protectedPages = ["dashboard.html", "farmer.html"];
+    if (protectedPages.includes(currentPage)) {
       window.location.href = "login.html";
     }
   }
