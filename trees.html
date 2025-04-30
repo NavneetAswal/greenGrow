@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Go Green</title>
+    <link rel="stylesheet" href="trees.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <a href="agri.html"
+          ><img src="/images/GreenGrow.png" alt="Green Grow Logo"
+        /></a>
+      </div>
+      <div class="navbtns">
+        <a href="farmer.html"> Farmer Tools</a>
+        <a href="trees.html"> Green Guardian</a>
+        <a href="#"> Green Map</a>
+        <a href="/login/login.html">Login</a>
+        <a href="/login/register.html">Register</a>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="maptotrack">
+        <div class="map">
+          <h2 class="maptrack">Map, Track, and Celebrate</h2>
+          <h2 class="communitytree">Community Tree Planting Efforts</h2>
+          <p>
+            A tool to map,track and celebrate community tree planting efforts.
+          </p>
+        </div>
+      </div>
+      <div class="button">
+        <button class="start">Get Started</button>
+        <button class="learn">Learn More</button>
+      </div>
+    </div>
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+    <script>
+      // Update navbar based on auth state
+      auth.onAuthStateChanged((user) => {
+        const navbtns = document.querySelector(".navbtns");
+        if (user) {
+          // User is logged in
+          navbtns.innerHTML += `
+        <a href="#" id="logout-btn">Logout (${
+          user.displayName || user.email
+        })</a>
+      `;
+          document
+            .getElementById("logout-btn")
+            .addEventListener("click", logout);
+        } else {
+          // User is logged out
+          navbtns.innerHTML += `
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+      `;
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Farmer's Hub - Smart farming tools for better crop management"
+    />
+    <title>Farmer's Hub: Smart Farming Tools</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="main">
+      <div class="navbar">
+        <div class="logo">
+          <a href="agri.html">
+            <img src="/images/GreenGrow.png" alt="Green Grow Logo" />
+          </a>
+        </div>
+        <div class="navbtns">
+          <a href="farmer.html"> Farmer Tools</a>
+          <a href="trees.html"> Green Guardian</a>
+          <a href="#"> Green Map</a>
+          <a href="/login/login.html">Login</a>
+          <a href="/login/register.html">Register</a>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="heading">
+          <h1>Farmer's Hub: Smart Farming Tools</h1>
+          <p>
+            Empowering farmers with the right knowledge at the right time to
+            grow better crops and boost harvests!
+          </p>
+        </div>
+      </div>
+
+      <div class="tool">
+        <div class="form">
+          <form action="#" id="form">
+            <h3><i class="fas fa-seedling"></i> Crop Name:</h3>
+            <input type="text" id="Crop" placeholder="e.g. wheat, tomato" />
+            <h3><i class="fas fa-map-marker-alt"></i> Location (City Name):</h3>
+            <input type="text" id="City" placeholder="e.g. Delhi, Mumbai" />
+            <div class="formbtn">
+              <button type="submit" id="Submit" class="btn-primary">
+                <i class="fas fa-search"></i> Find Best Planting Time
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="loading hidden">
+        <div class="spinner"></div>
+        <p>Fetching farming data...</p>
+      </div>
+
+      <div class="result hidden">
+        <div class="inputTxt">
+          <h3 id="cropName"></h3>
+          <h3 id="cityName"></h3>
+        </div>
+        <div class="time">
+          <p class="bestTime"></p>
+        </div>
+        <div class="currentTemp">
+          <h3 id="currentTemp"></h3>
+        </div>
+        <div class="weather">
+          <h4>5-Day Weather Forecast <span class="cityName"></span></h4>
+          <ul id="weatherList"></ul>
+        </div>
+        <div class="cropSuggestion">
+          <h4>
+            Based on <span class="cityName"></span>'s Current Weather and Soil
+            Conditions, you could also consider planting:
+          </h4>
+          <ul id="cropSuggestion"></ul>
+        </div>
+        <button id="backBtn" class="btn-secondary">
+          <i class="fas fa-arrow-left"></i> Back to Search
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+    <script>
+      // Update navbar based on auth state
+      auth.onAuthStateChanged((user) => {
+        const navbtns = document.querySelector(".navbtns");
+        if (user) {
+          // User is logged in
+          navbtns.innerHTML += `
+        <a href="#" id="logout-btn">Logout (${
+          user.displayName || user.email
+        })</a>
+      `;
+          document
+            .getElementById("logout-btn")
+            .addEventListener("click", logout);
+        } else {
+          // User is logged out
+          navbtns.innerHTML += `
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+      `;
+        }
+      });
+    </script>
+  </body>
+</html>

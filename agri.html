@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenGrow</title>
+    <link rel="stylesheet" href="agri.css" />
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <a href="agri.html"
+          ><img src="/images/GreenGrow.png" alt="Green Grow Logo"
+        /></a>
+      </div>
+      <div class="navbtns">
+        <a href="farmer.html"> Farmer Tools</a>
+        <a href="trees.html"> Green Guardian</a>
+        <a href="#"> Green Map</a>
+        <a href="/login/login.html">Login</a>
+        <a href="/login/register.html">Register</a>
+      </div>
+    </div>
+    <main class="main">
+      <div class="main_content">
+        <div class="content">
+          <h2>Grow Better. Plant Smarter.</h2>
+          <h2>Celebrate Greener Communities.</h2>
+        </div>
+        <div class="smallcontent">
+          <p>Empowering farmers and communities to create a grenner tomorrow</p>
+        </div>
+        <div class="nextPagesBtn">
+          <a style="text-decoration: none" href="farmer.html">
+            <div class="btnBox" id="for_farmers">
+              <h3>For Farmers</h3>
+              <p>Lets Find Best Crop For You!!</p>
+            </div>
+          </a>
+          <a style="text-decoration: none" href="trees.html">
+            <div class="btnBox" id="for_trees">
+              <h3>For Trees Plantation</h3>
+              <p>Lets Plant More and More Trees</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div id="tree">
+        <img class="logo" src="images/trees.png" />
+        <div>Smart tree</div>
+        <div>Reccomendations</div>
+      </div>
+      <div id="location">
+        <img class="logo" src="images/location.png" />
+        <div>Community</div>
+        <div>Tree Mapping</div>
+      </div>
+      <div id="plant">
+        <img class="logo" src="images/plant.png" />
+        <div>Growth Tracking</div>
+        <div>& Celebration</div>
+      </div>
+      <div id="earth">
+        <img class="logo" src="images/earth.png" />
+        <div>Sustainable</div>
+        <div>Future Together</div>
+      </div>
+    </footer>
+
+    <script src="agri.js"></script>
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+    <script>
+      // Update navbar based on auth state
+      auth.onAuthStateChanged((user) => {
+        const navbtns = document.querySelector(".navbtns");
+        if (user) {
+          // User is logged in
+          navbtns.innerHTML += `
+        <a href="#" id="logout-btn">Logout (${
+          user.displayName || user.email
+        })</a>
+      `;
+          document
+            .getElementById("logout-btn")
+            .addEventListener("click", logout);
+        } else {
+          // User is logged out
+          navbtns.innerHTML += `
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+      `;
+        }
+      });
+    </script>
+  </body>
+</html>
