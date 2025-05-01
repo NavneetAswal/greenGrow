@@ -78,8 +78,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
     <!-- App Scripts -->
-    <script src="/greenGrow/js/app.js"></script>
     <script src="/greenGrow/js/auth.js"></script>
+    <script src="/greenGrow/js/app.js"></script>
 
     <script>
       document
@@ -94,22 +94,44 @@
             document.getElementById("confirm-password").value;
 
           if (password !== confirmPassword) {
-            showError("error-message", "Passwords do not match");
+            alert("Passwords don't match!");
             return;
           }
 
           auth
             .createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
-              return userCredential.user.updateProfile({
-                displayName: name,
-              });
-            })
-            .then(() => {
-              window.location.href = "dashboard.html";
+              return userCredential.user
+                .updateProfile({
+                  displayName: name,
+                })
+                .then(() => {
+                  // Store user data with email from Firebase
+                  const user = userCredential.user;
+                  localStorage.setItem(
+                    "currentUser",
+                    JSON.stringify({
+                      name: name,
+                      email: user.email,
+                    })
+                  );
+
+                  // Initialize user in local storage
+                  const users = JSON.parse(
+                    localStorage.getItem("users") || "[]"
+                  );
+                  users.push({
+                    name: name,
+                    email: user.email,
+                    treesPlanted: 0,
+                  });
+                  localStorage.setItem("users", JSON.stringify(users));
+
+                  window.location.href = "dashboard.html";
+                });
             })
             .catch((error) => {
-              showError("error-message", error.message);
+              alert(error.message);
             });
         });
     </script>

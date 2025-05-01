@@ -3,55 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GreenGrow Profile</title>
+    <title>My Profile - GreenGrow</title>
     <link rel="stylesheet" href="/greenGrow/css/style.css" />
+    <link rel="stylesheet" href="/greenGrow/css/profile.css" />
   </head>
   <body>
     <div class="navbar">
       <div class="logo">
-        <a href="index.html"
-          ><img src="/greenGrow/images/GreenGrow.png" alt="Green Grow Logo"
-        /></a>
+        <a href="index.html">
+          <img src="/greenGrow/images/GreenGrow.png" alt="GreenGrow Logo" />
+        </a>
       </div>
       <div class="navbtns">
         <a href="farmer.html">Farmer Tools</a>
         <a href="trees.html">Green Guardian</a>
         <a href="map.html">Green Map</a>
-        <a href="#" id="logout-btn">Logout</a>
+        <a href="dashboard.html" class="active">Profile</a>
       </div>
     </div>
 
     <main class="main">
-      <div class="main_content" style="text-align: center">
-        <h1>Welcome to Your Profile</h1>
-        <p id="user-greeting">Loading user information...</p>
+      <section class="profile-header">
+        <div class="user-avatar" id="user-avatar">GG</div>
+        <h1 id="user-name">Green Guardian</h1>
+        <p id="user-email" style="color: #ccc"></p>
+      </section>
 
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Your Trees</h3>
+          <p class="stat-number" id="tree-count">0</p>
+        </div>
+
+        <div class="stat-card">
+          <h3>Community Rank</h3>
+          <p class="stat-number" id="user-rank">#0</p>
         </div>
       </div>
+
+      <section class="planted-trees">
+        <h2>Your Planted Memories</h2>
+        <div id="trees-container" class="trees-grid"></div>
+      </section>
     </main>
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-
+    
     <!-- App Scripts -->
     <script src="/greenGrow/js/app.js"></script>
     <script src="/greenGrow/js/auth.js"></script>
-
-    <script>
-      // Display user information
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          document.getElementById("user-greeting").textContent = `Hello, ${
-            user.displayName || "User"
-          }! (${user.email})`;
-        }
-      });
-
-      document.getElementById("logout-btn").addEventListener("click", logout);
-    </script>
+    <script src="/greenGrow/js/profile.js"></script>
   </body>
 </html>

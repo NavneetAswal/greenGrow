@@ -322,3 +322,38 @@ form input:focus {
   font-size: 20px;
   background-color: rgba(255, 255, 255, 0.515);
 }
+
+.soilInfo {
+  background-color: #f0fff0;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.soilInfo ul {
+  list-style: none;
+  padding: 0;
+}
+.soilInfo li {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: var(--black);
+}
+
+
+.recommendation {
+  background-color: #fffbea;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.recommendation ul {
+  list-style: none;
+  padding-left: 0;
+}
+.recommendation li {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: var(--black);
+}

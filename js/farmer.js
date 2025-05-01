@@ -9,10 +9,10 @@ const cityNameDisplay = document.getElementById("cityName");
 const bestTimeDisplay = document.querySelector(".bestTime");
 const weatherList = document.getElementById("weatherList");
 const cropSuggestionList = document.getElementById("cropSuggestion");
+const soilDetails = document.getElementById("soilDetails");
 
 const API_KEY = "3eb7b84eb0de9115a467ecbbb48dfb85";
 
-// crop seaosns database
 const cropSeasons = {
   wheat: { season: "October to December", temp: "cool" },
   rice: { season: "June to July", temp: "warm" },
@@ -69,8 +69,9 @@ async function handleFormSubmit(e) {
 
     const { lat, lon } = geoData[0];
     const weatherData = await getWeatherData(lat, lon);
+    const soilData = await getSoilData(lat, lon);
 
-    displayResults(crop, city, weatherData);
+    displayResults(crop, city, weatherData, soilData);
   } catch (error) {
     console.error("Error:", error);
     showAlert("Something went wrong. Please try again later.");
@@ -94,15 +95,41 @@ async function getWeatherData(lat, lon) {
   return await response.json();
 }
 
-function displayResults(crop, city, weatherData) {
+async function getSoilData(lat, lon) {
+  const vars = ["phh2o", "ocd", "clay"];
+  const results = {};
+
+  for (const variable of vars) {
+    try {
+      const res = await fetch(
+        `https://api.openlandmap.org/query?lon=${lon}&lat=${lat}&var=${variable}`
+      );
+      const data = await res.json();
+      results[variable] =
+        data.value !== undefined ? data.value.toFixed(2) : "N/A";
+    } catch (err) {
+      console.error(`Error fetching ${variable}:`, err);
+      results[variable] = "N/A";
+    }
+  }
+
+  return {
+    pH: results["phh2o"],
+    ocd: results["ocd"],
+    texture: `${results["clay"]}% clay`,
+  };
+}
+
+function displayResults(crop, city, weatherData, soilData) {
   toolSection.classList.add("hidden");
   resultSection.classList.remove("hidden");
 
-  // Display basic info of crop entered by user , and his/her city
   cropNameDisplay.textContent = `Crop: ${capitalize(crop)}`;
   cityNameDisplay.textContent = `Location: ${capitalize(city)}`;
+  document
+    .querySelectorAll(".cityName")
+    .forEach((el) => (el.textContent = capitalize(city)));
 
-  // Display best planting time  accourding to our own corp databse
   if (cropSeasons[crop]) {
     bestTimeDisplay.textContent = `Best planting time: ${cropSeasons[crop].season}`;
   } else {
@@ -111,22 +138,19 @@ function displayResults(crop, city, weatherData) {
     )}.`;
   }
 
-  // Display current temperature using openWeather api --> (which is free)
   const todayTemp = weatherData.list[0].main.temp;
   document.getElementById(
     "currentTemp"
   ).textContent = `Current Temperature: ${todayTemp.toFixed(1)}°C`;
 
-  // Process and display 5-day forecast using api
   displayWeatherForecast(weatherData);
-
-  // Display crop suggestions
   displayCropSuggestions(weatherData);
+  displaySoilData(soilData);
+  displayRecommendations(soilData);
 }
 
 function displayWeatherForecast(weatherData) {
   const dailyData = {};
-
   weatherData.list.forEach((item) => {
     const date = item.dt_txt.split(" ")[0];
     if (!dailyData[date]) {
@@ -198,6 +222,14 @@ function displayCropSuggestions(weatherData) {
   });
 }
 
+function displaySoilData(soilData) {
+  soilDetails.innerHTML = `
+    <li>Soil pH (topsoil): ${soilData.pH}</li>
+    <li>Organic Carbon: ${soilData.ocd} g/kg</li>
+    <li>Texture: ${soilData.texture}</li>
+  `;
+}
+
 function showLoading() {
   toolSection.classList.add("hidden");
   resultSection.classList.add("hidden");
@@ -231,4 +263,57 @@ function capitalize(str) {
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
+}
+
+function displayRecommendations(soilData) {
+  const adviceList = document.getElementById("adviceList");
+  const pH = parseFloat(soilData.pH);
+  const oc = parseFloat(soilData.ocd);
+  const clay = parseFloat(soilData.texture.split("%")[0]);
+  const advice = [];
+
+  // Fertilizer suggestions
+  if (!isNaN(pH)) {
+    if (pH < 5.5) {
+      advice.push(
+        "Soil is acidic. Add lime and avoid ammonium-based fertilizers."
+      );
+    } else if (pH <= 7.5) {
+      advice.push("Soil pH is ideal. Use balanced NPK or organic compost.");
+    } else {
+      advice.push("Soil is alkaline. Use sulfur or gypsum-based fertilizers.");
+    }
+  }
+
+  if (!isNaN(oc)) {
+    if (oc < 0.5) {
+      advice.push("Organic carbon is low. Apply compost or green manure.");
+    } else {
+      advice.push("Organic carbon is adequate. Maintain with organic inputs.");
+    }
+  }
+
+  // Crop suggestions
+  if (!isNaN(clay)) {
+    if (clay < 20) {
+      advice.push(
+        "Soil texture is sandy. Grow crops like groundnut, carrot, watermelon."
+      );
+    } else if (clay <= 35) {
+      advice.push(
+        "Soil texture is loamy. Suitable for wheat, maize, tomato, onion."
+      );
+    } else {
+      advice.push(
+        "Soil texture is clayey. Ideal for paddy, cotton, and soybean."
+      );
+    }
+  }
+
+  adviceList.innerHTML = "";
+  advice.forEach((tip) => {
+    const li = document.createElement("li");
+    li.textContent = tip;
+    adviceList.appendChild(li);
+  });
 }

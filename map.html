@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Go Green</title>
+    <title>Green Map</title>
     <link rel="stylesheet" href="/greenGrow/css/map.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
@@ -11,89 +11,123 @@
     />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   </head>
-  <div id="upload-modal" style="display: none" class="upload-modal">
-    <div class="upload-box">
-      <h3>Upload a Photo of Your Tree</h3>
-      <input type="file" id="custom-file-input" accept="image/*" />
-      <div style="margin-top: 10px">
-        <button id="upload-cancel">Cancel</button>
+  <body>
+    <div id="upload-modal" class="upload-modal">
+      <div class="upload-box">
+        <h3 class="upload-header">🌱 Plant Memory</h3>
+
+        <div class="form-group">
+          <label>Your Name:</label>
+          <input
+            type="text"
+            id="user-name"
+            class="form-input"
+            placeholder="Gardener's name"
+            required
+          />
+          <div class="error-message" id="name-error"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Plant Name:</label>
+          <input
+            type="text"
+            id="plant-name"
+            class="form-input"
+            placeholder="e.g., Grand Oak"
+            required
+          />
+          <div class="error-message" id="plant-error"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Planting Date:</label>
+          <input type="date" id="plant-date" class="form-input" required />
+        </div>
+
+        <div class="form-group">
+          <label>Memory Note:</label>
+          <textarea
+            id="plant-description"
+            class="form-input"
+            rows="3"
+            placeholder="Share your planting story..."
+          ></textarea>
+        </div>
+
+        <div class="file-input-wrapper">
+          <input
+            type="file"
+            id="custom-file-input"
+            class="custom-file-input"
+            accept="image/*"
+            required
+          />
+          <label for="custom-file-input" class="file-input-label"
+            >Upload Memory Photo</label
+          >
+          <div class="error-message" id="file-error"></div>
+        </div>
+
+        <div class="upload-actions">
+          <button id="upload-cancel" class="upload-btn">Cancel</button>
+          <button id="upload-confirm" class="upload-btn">Save Memory</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <body>
     <div class="navbar">
       <div class="logo">
         <a href="index.html">
-          <img src="/greenGrow/images/GreenGrow.png" alt="Green Grow Logo" />
+          <img src="/greenGrow/images/GreenGrow.png" alt="GreenGrow Logo" />
         </a>
       </div>
       <div class="navbtns">
-        <a href="farmer.html"> Farmer Tools</a>
-        <a href="trees.html"> Green Guardian</a>
-        <a href="map.html"> Green Map</a>
-        <a href="dashboard.html" id="dashboard-link" style="display: none"
-          >Profile</a
-        >
+        <a href="farmer.html">Farmer Tools</a>
+        <a href="trees.html">Green Guardian</a>
+        <a href="map.html" class="active">Green Map</a>
+        <a href="dashboard.html" id="dashboard-link">Profile</a>
       </div>
     </div>
 
-    <header class="hero">
-      <div class="hero-content">
-        <h1>Map, Track & Celebrate</h1>
-        <p>Join the movement and make our Earth greener!</p>
-        <div class="hero-buttons"></div>
-      </div>
-    </header>
-
-    <section class="map-section">
-      <h2>Select a District to Track Plantations</h2>
-      <select id="district-dropdown">
-        <option value="">--Select a District--</option>
-      </select>
-      <div id="map" style="height: 400px; width: 100%"></div>
-      <button id="plant-tree" style="margin-top: 10px">Plant a Tree</button>
-    </section>
-
-    <footer>
-      <p>🌳 Together we grow a greener tomorrow.</p>
-    </footer>
-
-    <template id="login-template">
-      <div class="login-container">
-        <div class="login-box">
-          <h2>Login / Register</h2>
-          <form>
-            <div class="input-group">
-              <label for="username">Username</label>
-              <input type="text" id="username" name="username" required />
-            </div>
-            <div class="input-group">
-              <label for="password">Password</label>
-              <input type="password" id="password" name="password" required />
-            </div>
-            <button type="submit" id="submit">Login</button>
-            <p class="note">Forgot your password? <a href="#">Click here</a></p>
-          </form>
+    <section class="stats-dashboard">
+      <div class="stats-container">
+        <div class="stat-card">
+          <h3>Total Trees</h3>
+          <p id="total-trees">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Active Gardeners</h3>
+          <p id="total-users">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>CO2 Reduced</h3>
+          <p id="co2-reduced">0 tons</p>
+        </div>
+        <div class="stat-card top-card">
+          <h3>Top Gardeners</h3>
+          <ol id="top-countries"></ol>
         </div>
       </div>
-    </template>
+    </section>
+
+    <section class="map-section">
+      <h2>Community Plantation Tracker</h2>
+      <select id="district-dropdown">
+        <option value="">-- Select District --</option>
+      </select>
+      <div id="map"></div>
+      <button id="plant-tree" class="plant-button">Plant New Memory</button>
+    </section>
+
+    <footer>                  
+      <p>
+        🌍 Together we've planted <span id="footer-trees">0</span> living
+        memories worldwide
+      </p>
+    </footer>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="/greenGrow/js/map.js"></script>
-    <script>
-      auth.onAuthStateChanged((user) => {
-        const authButtons = document.getElementById("auth-buttons");
-        const dashboardLink = document.getElementById("dashboard-link");
-
-        if (user) {
-          authButtons.style.display = "none";
-          dashboardLink.style.display = "block";
-        } else {
-          authButtons.style.display = "block";
-          dashboardLink.style.display = "none";
-        }
-      });
-    </script>
+    <script src="/greenGrow/js/localStorage.js"></script>
   </body>
 </html>

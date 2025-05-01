@@ -1,92 +1,72 @@
-// Auth state change handler
-auth.onAuthStateChanged((user) => {
+// Firebase authentication state handler
+firebase.auth().onAuthStateChanged((user) => {
   const currentPage = window.location.pathname.split("/").pop();
 
   if (user) {
-    // Only redirect from login/register pages
-    if (currentPage === "login.html" || currentPage === "register.html") {
+    // Update user data in localStorage
+    const userData = {
+      name: user.displayName || user.email.split("@")[0],
+      email: user.email,
+    };
+    localStorage.setItem("currentUser", JSON.stringify(userData));
+
+    // Redirect from auth pages
+    if (["login.html", "register.html"].includes(currentPage)) {
       window.location.href = "dashboard.html";
     }
   } else {
-    // Redirect from protected pages
-    const protectedPages = ["dashboard.html", "farmer.html"];
-    if (protectedPages.includes(currentPage)) {
+    // Clear user data and protect routes
+    localStorage.removeItem("currentUser");
+    if (["dashboard.html", "farmer.html"].includes(currentPage)) {
       window.location.href = "login.html";
     }
   }
+
+  updateNavbar(user);
 });
 
-// Update navbar based on auth state
+// Navbar updater function
 function updateNavbar(user) {
   const navbtns = document.querySelector(".navbtns");
   if (!navbtns) return;
 
+  // Remove existing logout button
+  const existingLogout = document.getElementById("logout-btn");
+  if (existingLogout) existingLogout.remove();
+
   if (user) {
-    // User is logged in - show logout button
-    const loginLink = document.getElementById("login-nav");
-    const registerLink = document.getElementById("register-nav");
+    // Create new logout button
+    const logoutElement = document.createElement("a");
+    logoutElement.href = "#";
+    logoutElement.id = "logout-btn";
+    logoutElement.className = "nav-button";
+    logoutElement.innerHTML = "Logout";
 
-    if (loginLink && registerLink) {
-      loginLink.style.display = "none";
-      registerLink.style.display = "none";
+    // Get profile link reference
+    const profileLink = document.querySelector('a[href="dashboard.html"]');
 
-      const logoutBtn = document.createElement("a");
-      logoutBtn.href = "#";
-      logoutBtn.id = "logout-btn";
-      logoutBtn.textContent = `Logout (${user.displayName || user.email})`;
-      logoutBtn.addEventListener("click", logout);
-
-      navbtns.appendChild(logoutBtn);
-    }
-  } else {
-    // User is logged out - show login/register buttons
-    const loginLink = document.getElementById("login-nav");
-    const registerLink = document.getElementById("register-nav");
-    const logoutBtn = document.getElementById("logout-btn");
-
-    if (loginLink && registerLink) {
-      loginLink.style.display = "block";
-      registerLink.style.display = "block";
-    }
-
-    if (logoutBtn) {
-      logoutBtn.remove();
+    // Insert logout button after profile link
+    if (profileLink) {
+      profileLink.insertAdjacentElement("afterend", logoutElement);
+      // Update profile text
+      profileLink.textContent = user.displayName || "Profile";
     }
   }
 }
 
-// Logout function
-function logout() {
-  auth
-    .signOut()
-    .then(() => {
-      window.location.href = "index.html";
-    })
-    .catch((error) => {
-      console.error("Logout error:", error);
-    });
-}
-
-// Show error message
-function showError(elementId, message) {
-  const errorElement = document.getElementById(elementId);
-  if (errorElement) {
-    errorElement.textContent = message;
-    errorElement.style.display = "block";
-    setTimeout(() => {
-      errorElement.style.display = "none";
-    }, 5000);
+// Universal logout handler
+document.addEventListener("click", (e) => {
+  if (e.target?.id === "logout-btn") {
+    e.preventDefault();
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        window.location.href = "index.html";
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+        alert("Logout failed. Please try again.");
+      });
   }
-}
-
-// Show success message
-function showSuccess(elementId, message) {
-  const successElement = document.getElementById(elementId);
-  if (successElement) {
-    successElement.textContent = message;
-    successElement.style.display = "block";
-    setTimeout(() => {
-      successElement.style.display = "none";
-    }, 5000);
-  }
-}
+});

@@ -1,4 +1,3 @@
-// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBMtyqPhgWdoupdnA4dzKrd365hRaqKqyo",
   authDomain: "greengrow25-b61c8.firebaseapp.com",

@@ -47,7 +47,7 @@ body {
 }
 
 .navbtns {
-  width: 50%;
+  width: 60;
   display: flex;
   justify-content: center;
   align-items: center;

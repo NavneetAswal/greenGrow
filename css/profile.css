@@ -1,0 +1,144 @@
+:root {
+  --primary-green: #246e39;
+  --light-green: #89d564;
+  --bg-glass: rgba(255, 255, 255, 0.05);
+}
+
+body {
+  background: linear-gradient(rgba(10, 126, 10, 0.7), rgba(0, 100, 0, 0.8)),
+    url("/greenGrow/images/plants.jpg") center/cover fixed;
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+.profile-header {
+  text-align: center;
+  padding: 2rem;
+  background: var(--primary-green);
+  border-radius: 15px;
+  margin: 2rem auto;
+  max-width: 800px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  color: var(--primary-green);
+  margin: 0 auto 1rem;
+}
+
+#user-email {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.stat-card {
+  background: var(--primary-green);
+  padding: 1.5rem;
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  margin-top: 0.5rem;
+}
+
+.planted-trees {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.planted-trees h2 {
+  text-align: center;
+  color: var(--light-green);
+  margin-bottom: 1.5rem;
+}
+
+.tree-card p {
+  color: #e0e0e0;
+  margin: 0.5rem 0;
+}
+
+.trees-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.tree-card {
+  background: var(--primary-green);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.tree-card:hover {
+  transform: translateY(-5px);
+}
+
+.tree-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.tree-card h3 {
+  color: var(--light-green);
+  margin-bottom: 0.25rem;
+}
+.tree-card small {
+  color: #89d564;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+/* Ensure elements are visible */
+#logout-btn {
+  background: var(--primary-green);
+  padding: 8px 20px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  color: white !important;
+}
+
+#logout-btn:hover {
+  background: #1a4d2a;
+  transform: translateY(-1px);
+}
+
+.trees-grid {
+  min-height: 200px;
+  position: relative;
+}
+
+.stat-card {
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Error handling visuals */
+.error-message {
+  color: #ff4444;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
